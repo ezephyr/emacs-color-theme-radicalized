@@ -1,7 +1,7 @@
-;;; Author: Ethan Schoonover, Solarized; Greg Pfeil, Emacs adaptation
-;;; URL: http://ethanschoonover.com/solarized
+;;; Author: Ethan Schoonover, Solarized; Greg Pfeil, Emacs adaptation; Geoff Shannon, Radicalized adaptation
+;;; URL: http://github.com/ezephyr/emacs-color-theme-radicalized
 
-;;; This file is not (YET) part of GNU Emacs.
+;;; This file is not part of GNU Emacs.
 
 ;;; # Usage
 
@@ -24,8 +24,10 @@
 
 ;;;###autoload
 (defun color-theme-radicalized (mode)
-  "Color theme by Ethan Schoonover, created 2011-03-24.
-Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
+  "Color theme by Geoff Shannon, created 2011.
+Based on the excellent Solarized color theme by Ethan Schoonover,
+created 2011-03-24.  Ported to Emacs by Greg Pfeil,
+http://ethanschoonover.com/solarized."
   (interactive "Slight or dark? ")
   (color-theme-install
    (let* ((definitions (radicalized-color-definitions mode))
