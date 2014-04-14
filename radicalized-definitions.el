@@ -1,61 +1,61 @@
 (eval-when-compile
   (require 'cl))
 
-(defconst solarized-description
+(defconst radicalized-description
   "Color theme by Ethan Schoonover, created 2011-03-24.
-Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized.")
+Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/radicalized.")
 
-(defcustom solarized-degrade nil
-  "For test purposes only; when in GUI mode, forces Solarized to use the 256
+(defcustom radicalized-degrade nil
+  "For test purposes only; when in GUI mode, forces Radicalized to use the 256
 degraded color mode to test the approximate color values for accuracy."
   :type 'boolean
-  :group 'solarized)
+  :group 'radicalized)
 
-(defcustom solarized-diff-mode 'normal
+(defcustom radicalized-diff-mode 'normal
   "Sets the level of highlighting to use in diff-like modes."
   :type 'symbol
   :options '(high normal low)
-  :group 'solarized)
+  :group 'radicalized)
 
-(defcustom solarized-bold t
-  "Stops Solarized from displaying bold when nil."
+(defcustom radicalized-bold t
+  "Stops Radicalized from displaying bold when nil."
   :type 'boolean
-  :group 'solarized)
+  :group 'radicalized)
 
-(defcustom solarized-underline t
-  "Stops Solarized from displaying underlines when nil."
+(defcustom radicalized-underline t
+  "Stops Radicalized from displaying underlines when nil."
   :type 'boolean
-  :group 'solarized)
+  :group 'radicalized)
 
-(defcustom solarized-italic t
-  "Stops Solarized from displaying italics when nil."
+(defcustom radicalized-italic t
+  "Stops Radicalized from displaying italics when nil."
   :type 'boolean
-  :group 'solarized)
+  :group 'radicalized)
 
-(defcustom solarized-contrast 'normal
+(defcustom radicalized-contrast 'normal
   "Stick with normal! It's been carefully tested. Setting this option to high or
-low does use the same Solarized palette but simply shifts some values up or
+low does use the same Radicalized palette but simply shifts some values up or
 down in order to expand or compress the tonal range displayed."
   :type 'symbol
   :options '(high normal low)
-  :group 'solarized)
+  :group 'radicalized)
 
-(defcustom solarized-broken-srgb (if (and (eq system-type 'darwin)
+(defcustom radicalized-broken-srgb (if (and (eq system-type 'darwin)
                                           (eq window-system 'ns))
                                      (not (and (boundp 'ns-use-srgb-colorspace)
                                                ns-use-srgb-colorspace))
                                    nil)
   "Emacs bug #8402 results in incorrect color handling on Macs. If this is t
-\(the default on Macs), Solarized works around it with alternative colors.
+\(the default on Macs), Radicalized works around it with alternative colors.
 However, these colors are not totally portable, so you may be able to edit
-the \"Gen RGB\" column in solarized-definitions.el to improve them further."
+the \"Gen RGB\" column in radicalized-definitions.el to improve them further."
   :type 'boolean
-  :group 'solarized)
+  :group 'radicalized)
 
 ;; FIXME: The Generic RGB colors will actually vary from device to device, but
 ;;        hopefully these are closer to the intended colors than the sRGB values
 ;;        that Emacs seems to dislike
-(defvar solarized-colors           ; ANSI(Solarized terminal)
+(defvar radicalized-colors           ; ANSI(Radicalized terminal)
   ;; name     sRGB      Gen RGB   256       16              8
   '((base03  "#002b36" "#042028" "#1c1c1c" "brightblack"   "black")
     (base02  "#073642" "#0a2832" "#262626" "black"         "black")
@@ -73,7 +73,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
     (blue    "#268bd2" "#2075c7" "#0087ff" "blue"          "blue")
     (cyan    "#2aa198" "#259185" "#00afaf" "cyan"          "cyan")
     (green   "#859900" "#728a05" "#5f8700" "green"         "green"))
-  "This is a table of all the colors used by the Solarized color theme. Each
+  "This is a table of all the colors used by the Radicalized color theme. Each
    column is a different set, one of which will be chosen based on term
    capabilities, etc.")
 
@@ -85,17 +85,17 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
     (fset 'which-flet 'cl-flet)
   (fset 'which-flet 'flet))
 
-(defun solarized-color-definitions (mode)
+(defun radicalized-color-definitions (mode)
   (which-flet ((find-color (name)
            (let ((index (if window-system
-                             (if solarized-degrade
+                             (if radicalized-degrade
                                  3
-                               (if solarized-broken-srgb 2 1))
+                               (if radicalized-broken-srgb 2 1))
                            (case (display-color-cells)
                              (16 4)
                              (8  5)
                              (otherwise 3)))))
-             (nth index (assoc name solarized-colors)))))
+             (nth index (assoc name radicalized-colors)))))
     (let ((base03      (find-color 'base03))
           (base02      (find-color 'base02))
           (base01      (find-color 'base01))
@@ -112,11 +112,11 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
           (blue        (find-color 'blue))
           (cyan        (find-color 'cyan))
           (green       (find-color 'green))
-          (bold        (if solarized-bold 'bold 'normal))
-          (bright-bold (if solarized-bold 'normal 'bold))
-          (underline   (if solarized-underline t nil))
+          (bold        (if radicalized-bold 'bold 'normal))
+          (bright-bold (if radicalized-bold 'normal 'bold))
+          (underline   (if radicalized-underline t nil))
           (opt-under   nil)
-          (italic      (if solarized-italic 'italic 'normal)))
+          (italic      (if radicalized-italic 'italic 'normal)))
       (when (eq 'light mode)
         (rotatef base03 base3)
         (rotatef base02 base2)
@@ -125,11 +125,11 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
       (let ((back base03))
         (cond ((< (display-color-cells) 16)
                (setf back nil))
-              ((eq 'high solarized-contrast)
+              ((eq 'high radicalized-contrast)
                (let ((orig-base3 base3))
                  (rotatef base01 base00 base0 base1 base2 base3)
                  (setf base3 orig-base3)))
-              ((eq 'low solarized-contrast)
+              ((eq 'low radicalized-contrast)
                (setf back      base02
                      opt-under t)))
         ;; NOTE: We try to turn an 8-color term into a 10-color term by not
@@ -241,7 +241,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (custom-state ((t (,@fg-green))))
              (custom-variable-tag ((t (,@fg-base1))))
              ;; diff - DiffAdd, DiffChange, DiffDelete, and DiffText
-             ,@(case solarized-diff-mode
+             ,@(case radicalized-diff-mode
                  (high
                   `((diff-added ((t (,@fmt-revr ,@fg-green))))
                     (diff-changed ((t (,@fmt-revr ,@fg-yellow))))
@@ -363,12 +363,12 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (widget-single-line-field ((t (:inherit widget-field))))
              ;; extra modules
              ;; -------------
-	     ;; ace-jump-mode
-	     (ace-jump-face-background ((t (,@fmt-none ,@fg-base01))))
-	     (ace-jump-face-foreground ((t (,@fmt-bold ,@fg-red))))
-	     ;; bm visual bookmarks
-	     (bm-fringe-face ((t (,@bg-orange ,@fg-base03))))
-	     (bm-fringe-persistent-face ((t (,@bg-blue ,@fg-base03))))
+       ;; ace-jump-mode
+       (ace-jump-face-background ((t (,@fmt-none ,@fg-base01))))
+       (ace-jump-face-foreground ((t (,@fmt-bold ,@fg-red))))
+       ;; bm visual bookmarks
+       (bm-fringe-face ((t (,@bg-orange ,@fg-base03))))
+       (bm-fringe-persistent-face ((t (,@bg-blue ,@fg-base03))))
              ;; Flymake
              (flymake-errline ((t (,@fmt-revr ,@fg-red ,@bg-back)))) ; ErrorMsg
              (flymake-warnline ; WarningMsg
@@ -394,10 +394,10 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (jabber-roster-user-offline ((t (,@fg-base01))))
              (jabber-roster-user-online ((t (,@fmt-bold ,@fg-blue))))
              (jabber-roster-user-xa ((t (,@fmt-ital ,@fg-magenta))))
-	     ;; git-gutter
-	     (git-gutter:modified ((t (,@fg-violet))))
-	     (git-gutter:added ((t (,@fg-green))))
-	     (git-gutter:deleted ((t (,@fg-red))))
+       ;; git-gutter
+       (git-gutter:modified ((t (,@fg-violet))))
+       (git-gutter:added ((t (,@fg-green))))
+       (git-gutter:deleted ((t (,@fg-red))))
              ;; gnus - these are taken from mutt, not VIM
              (gnus-cite-1 ((t (,@fmt-none ,@fg-blue)))) ; quoted
              (gnus-cite-2 ((t (,@fmt-none ,@fg-cyan)))) ; quoted1
@@ -539,31 +539,31 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              ;;flyspell
              (flyspell-incorrect ((t (,@fg-red))))
              (flyspell-duplicate ((t (,@fg-yellow))))
-	     ;;ansi-term
-	     (term-color-black ((t ( ,@fg-base02))))
-	     (term-color-red ((t ( ,@fg-red))))
-	     (term-color-green ((t ( ,@fg-green))))
-	     (term-color-yellow ((t ( ,@fg-yellow))))
-	     (term-color-blue ((t ( ,@fg-blue))))
-	     (term-color-magenta ((t ( ,@fg-magenta))))
-	     (term-color-cyan ((t ( ,@fg-cyan))))
-	     (term-color-white ((t ( ,@fg-base00)))))
+       ;;ansi-term
+       (term-color-black ((t ( ,@fg-base02))))
+       (term-color-red ((t ( ,@fg-red))))
+       (term-color-green ((t ( ,@fg-green))))
+       (term-color-yellow ((t ( ,@fg-yellow))))
+       (term-color-blue ((t ( ,@fg-blue))))
+       (term-color-magenta ((t ( ,@fg-magenta))))
+       (term-color-cyan ((t ( ,@fg-cyan))))
+       (term-color-white ((t ( ,@fg-base00)))))
 
             ((foreground-color . ,(when (<= 16 (display-color-cells)) base0))
              (background-color . ,back)
              (background-mode . ,mode)
              (cursor-color . ,(when (<= 16 (display-color-cells))
                                 base0))
-	     (ansi-color-names-vector . [,base02 ,red ,green ,yellow ,blue ,magenta ,cyan ,base00]))))))))
+       (ansi-color-names-vector . [,base02 ,red ,green ,yellow ,blue ,magenta ,cyan ,base00]))))))))
 
-(defmacro create-solarized-theme (mode)
-  (let* ((theme-name (intern (concat "solarized-" (symbol-name mode))))
-         (defs (solarized-color-definitions mode))
+(defmacro create-radicalized-theme (mode)
+  (let* ((theme-name (intern (concat "radicalized-" (symbol-name mode))))
+         (defs (radicalized-color-definitions mode))
          (theme-vars (mapcar (lambda (def) (list (car def) (cdr def)))
                              (second defs)))
          (theme-faces (first defs)))
     `(progn
-       (deftheme ,theme-name ,solarized-description)
+       (deftheme ,theme-name ,radicalized-description)
        (apply 'custom-theme-set-variables ',theme-name ',theme-vars)
        (apply 'custom-theme-set-faces ',theme-name ',theme-faces)
        (provide-theme ',theme-name))))
@@ -573,4 +573,4 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory (file-name-directory load-file-name))))
 
-(provide 'solarized-definitions)
+(provide 'radicalized-definitions)
