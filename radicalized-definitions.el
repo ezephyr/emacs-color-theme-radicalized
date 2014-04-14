@@ -2,12 +2,15 @@
   (require 'cl))
 
 (defconst radicalized-description
-  "Color theme by Ethan Schoonover, created 2011-03-24.
-Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/radicalized.")
+  "Color theme by Geoff Shannon, created 2011.
+Based on the excellent Solarized color theme by Ethan Schoonover,
+created 2011-03-24.  Ported to Emacs by Greg Pfeil,
+http://ethanschoonover.com/solarized.")
 
 (defcustom radicalized-degrade nil
-  "For test purposes only; when in GUI mode, forces Radicalized to use the 256
-degraded color mode to test the approximate color values for accuracy."
+  "For test purposes only; when in GUI mode, forces Radicalized
+to use the 256 degraded color mode to test the approximate color
+values for accuracy."
   :type 'boolean
   :group 'radicalized)
 
@@ -33,9 +36,10 @@ degraded color mode to test the approximate color values for accuracy."
   :group 'radicalized)
 
 (defcustom radicalized-contrast 'normal
-  "Stick with normal! It's been carefully tested. Setting this option to high or
-low does use the same Radicalized palette but simply shifts some values up or
-down in order to expand or compress the tonal range displayed."
+  "Stick with normal! It's been carefully tested. Setting this
+option to high or low does use the same Radicalized palette but
+simply shifts some values up or down in order to expand or
+compress the tonal range displayed."
   :type 'symbol
   :options '(high normal low)
   :group 'radicalized)
@@ -45,16 +49,17 @@ down in order to expand or compress the tonal range displayed."
                                      (not (and (boundp 'ns-use-srgb-colorspace)
                                                ns-use-srgb-colorspace))
                                    nil)
-  "Emacs bug #8402 results in incorrect color handling on Macs. If this is t
-\(the default on Macs), Radicalized works around it with alternative colors.
-However, these colors are not totally portable, so you may be able to edit
-the \"Gen RGB\" column in radicalized-definitions.el to improve them further."
+  "Emacs bug #8402 results in incorrect color handling on
+Macs. If this is t \(the default on Macs), Radicalized works
+around it with alternative colors.  However, these colors are not
+totally portable, so you may be able to edit the \"Gen RGB\"
+column in radicalized-definitions.el to improve them further."
   :type 'boolean
   :group 'radicalized)
 
-;; FIXME: The Generic RGB colors will actually vary from device to device, but
-;;        hopefully these are closer to the intended colors than the sRGB values
-;;        that Emacs seems to dislike
+;; FIXME: The Generic RGB colors will actually vary from device to
+;;        device, but hopefully these are closer to the intended
+;;        colors than the sRGB values that Emacs seems to dislike
 (defvar radicalized-colors           ; ANSI(Radicalized terminal)
   ;; name     sRGB      Gen RGB   256       16              8
   '((base03  "#002b36" "#042028" "#1c1c1c" "brightblack"   "black")
@@ -73,13 +78,13 @@ the \"Gen RGB\" column in radicalized-definitions.el to improve them further."
     (blue    "#268bd2" "#2075c7" "#0087ff" "blue"          "blue")
     (cyan    "#2aa198" "#259185" "#00afaf" "cyan"          "cyan")
     (green   "#859900" "#728a05" "#5f8700" "green"         "green"))
-  "This is a table of all the colors used by the Radicalized color theme. Each
-   column is a different set, one of which will be chosen based on term
-   capabilities, etc.")
+  "This is a table of all the colors used by the Radicalized
+   color theme. Each column is a different set, one of which will
+   be chosen based on term capabilities, etc.")
 
 (defvar which-flet
-  "This variable will store either flet or cl-flet depending on the Emacs
-  version. flet was deprecated in in 24.3")
+  "This variable will store either flet or cl-flet depending on
+the Emacs version. flet was deprecated in in 24.3")
 (if (or (> emacs-major-version 24)
         (and (>= emacs-major-version 24) (> emacs-minor-version 2)))
     (fset 'which-flet 'cl-flet)
@@ -132,9 +137,10 @@ the \"Gen RGB\" column in radicalized-definitions.el to improve them further."
               ((eq 'low radicalized-contrast)
                (setf back      base02
                      opt-under t)))
-        ;; NOTE: We try to turn an 8-color term into a 10-color term by not
-        ;;       using default background and foreground colors, expecting the
-        ;;       user to have the right colors set for them.
+        ;; NOTE: We try to turn an 8-color term into a 10-color term
+        ;;       by not using default background and foreground
+        ;;       colors, expecting the user to have the right colors
+        ;;       set for them.
         (let ((bg-back   `(:background ,back))
               (bg-base03 `(:background ,base03))
               (bg-base02 `(:background ,base02))
